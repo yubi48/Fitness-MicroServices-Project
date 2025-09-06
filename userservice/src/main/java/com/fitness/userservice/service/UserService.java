@@ -6,14 +6,17 @@ import com.fitness.userservice.models.User;
 import com.fitness.userservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
     public UserResponse register(RegisterRequest request) {
+        log.info("User service with request {}", request);
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("User email already exists");
         }
